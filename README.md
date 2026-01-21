@@ -1,45 +1,90 @@
 # Monte-Carlo-Simulation-StockPrice
 
-**1. Project Overview**
+Monte Carlo simulation project to model future stock price behavior under uncertainty using historical data and probabilistic sampling of returns.
 
-This project applies quantitative finance techniques to model and analyze future asset price behavior under uncertainty. Using historical price data, log returns are computed and analyzed to understand return characteristics before simulating future price paths through Monte Carlo methods.
+---
 
-2. Objective
+## Project Overview
 
-The objective of this project is to:
+This project applies quantitative finance techniques to analyze historical stock returns and simulate potential future price paths. Using daily adjusted closing prices, the notebook computes log returns, studies their distribution, and generates many simulated outcomes to understand risk and variability rather than producing a single point prediction.
 
-Analyze the historical return behavior of a financial asset
+---
 
-Estimate return distribution parameters
+## Objective
 
-Build a foundation for probabilistic price forecasting using simulation
+The goals of this project are to:
 
-Rather than predicting a single future price, this approach focuses on understanding the range of possible outcomes and associated risks.
+- Analyze historical return behavior of a financial asset
+- Estimate return distribution parameters (mean and volatility)
+- Build a foundation for probabilistic price forecasting using Monte Carlo simulation
 
-3. Asset and Data Description
+Instead of predicting one future price, the project focuses on the range of possible outcomes and the uncertainty around them.
 
-The analysis is conducted on NVIDIA Corporation (NVDA) using daily closing price data from January 2019 to January 2026.
+---
 
-The dataset contains:
+## Asset and Data Description
 
-Date
+- **Asset:** NVIDIA Corporation (NVDA)
+- **Frequency:** Daily
+- **Time period:** January 2019 to January 2026
+- **Price field used:** Adjusted Close
 
-Adjusted closing price
+Adjusted prices are used to account for stock splits and corporate actions so that computed returns reflect investor level outcomes.
 
-Adjusted prices are used to account for stock splits and corporate actions, ensuring that computed returns reflect true investor outcomes.
+---
 
-4. Data Preparation
+## Method Summary
 
-Historical price data is cleaned and sorted chronologically. Logarithmic returns are computed using consecutive price observations.
+### 1) Data Preparation
+- Clean and sort the data chronologically
+- Compute **log returns** from consecutive adjusted closing prices
 
-Log returns are preferred because they are time additive and provide a more stable representation of price changes over time.
+Why log returns:
+- They are **time additive**
+- They often provide a more stable representation of relative price changes
 
-5. Return Distribution Analysis
+### 2) Return Distribution Analysis
+- Plot a histogram of daily log returns
+- Overlay a normal distribution using the same mean and standard deviation
+- Visually assess whether a normal assumption is reasonable
 
-The empirical distribution of daily log returns is examined using a histogram. A normal distribution with the same mean and standard deviation is overlaid to assess the suitability of a normality assumption.
+Observation:
+- Returns are roughly bell shaped and centered near zero
+- There are **fat tails**, meaning extreme moves happen more often than a normal model predicts
 
-The return distribution exhibits a roughly bell shaped structure centered near zero, with noticeable fat tails. This indicates that extreme price movements occur more frequently than predicted by a normal distribution.
+Even with this limitation, the normal distribution is used as a baseline for simulation because it is simple, interpretable, and commonly used as a first step.
 
-Despite this limitation, the normal distribution serves as a reasonable baseline model for initial Monte Carlo simulations.
+### 3) Monte Carlo Simulation of Future Prices
+- Estimate historical mean return and volatility
+- Simulate many future return sequences by random sampling
+- Convert simulated returns into simulated future price paths (compounding through time)
+- Analyze the distribution of simulated outcomes
+
+Key output:
+- A **distribution** of possible future prices and paths, not a single forecast
+
+---
+
+## Results and Interpretation
+
+What this project provides:
+- An empirical view of historical return behavior
+- A probabilistic range of future prices
+- A clearer picture of uncertainty and downside risk
+
+What it does not claim:
+- Guaranteed prediction accuracy
+- Perfect modeling of market crashes or regime shifts
+
+---
+
+## Limitations
+
+- Assumes return behavior estimated from history remains stable
+- Normal returns can underestimate extreme events (fat tails)
+- Does not include time varying volatility, jumps, or macro regime changes
+
+
+
 
 
